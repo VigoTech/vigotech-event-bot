@@ -1,27 +1,29 @@
 module.exports.events = function() {
-  let events = [];
+    let events = [];
 
-  const request = require('sync-request');
-  const res = request('GET', process.env.VIGOTECH_JSON);
-  const data = JSON.parse(res.getBody('utf8'));
+    const request = require('sync-request');
+    const res = request('GET', process.env.VIGOTECH_JSON);
+    const data = JSON.parse(res.getBody('utf8'));
 
-  for (let groupKey in data.members) {
-    let group = data.members[groupKey]
-    try {
-      if (group.nextEvent.date === undefined) {
-        continue
-      }
+    for (let groupKey in data.members) {
+        let group = data.members[groupKey];
+        try {
+            if (group.nextEvent.date === undefined) {
+                continue;
+            }
 
-      const date = new Date(group.nextEvent.date)
+            const date = new Date(group.nextEvent.date);
 
-      if (date.getTime() >= new Date().getTime()) {
-        events.push(group)
-      }
+            if (date.getTime() >= new Date().getTime()) {
+                events.push(group);
+            }
+        }
+        catch (e) {
+          /*eslint no-console: "error"*/
+            console.error(e);
+        }
     }
-    catch (e) {
-    }
-  }
 
-  return events;
-}
+    return events;
+};
 
