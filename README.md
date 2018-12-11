@@ -2,6 +2,8 @@
 
 `yarn` or `npm install` 
 
+Rename `.env.example` to `.env` and set values
+
 # Execute
 
   `./events-bot help`
