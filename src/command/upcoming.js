@@ -1,7 +1,7 @@
 function findUpcomingEvents(events, range) {
     return events.filter(item => {
         const date = new Date(item.nextEvent.date);
-        const now = new Date('2018-12-12 18:30');
+        const now = new Date();
 
         return (date.getTime() >= now.getTime()) && (date.getTime() <= (now.getTime() + range * 60 * 1000));
     });
