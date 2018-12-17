@@ -13,3 +13,11 @@ pipelines:
         script: # Modify the commands below to build your repository.
           - npm install
           - node event-bot daily
+  custom:
+    daily:
+      - step:
+          caches:
+            - node
+          script: # Modify the commands below to build your repository.
+            - npm install
+            - node event-bot hourly    
