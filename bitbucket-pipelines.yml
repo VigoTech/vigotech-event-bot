@@ -12,7 +12,7 @@ pipelines:
           - node
         script: # Modify the commands below to build your repository.
           - npm install
-          - node event-bot daily
+          - node events-bot daily
   custom:
     daily:
       - step:
@@ -20,4 +20,4 @@ pipelines:
             - node
           script: # Modify the commands below to build your repository.
             - npm install
-            - node event-bot hourly    
+            - node events-bot hourly    
