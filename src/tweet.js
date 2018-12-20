@@ -1,8 +1,6 @@
 module.exports.post = function (status) {
     const Twit = require('twit');
 
-console.log('CONSUMER_KEY',process.env.CONSUMER_KEY)
-console.log(process.env);
     const T = new Twit({
         consumer_key: process.env.CONSUMER_KEY,
         consumer_secret: process.env.CONSUMER_SECRET,
@@ -13,6 +11,6 @@ console.log(process.env);
     });
 
     T.post('statuses/update', {status}, function (err, data) {          
-        throw new Error(data)
+        throw data
     });
 };
