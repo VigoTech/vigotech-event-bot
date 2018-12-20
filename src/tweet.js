@@ -11,6 +11,6 @@ module.exports.post = function (status) {
     });
 
     T.post('statuses/update', {status}, function (err, data) {          
-        throw data
+        throw new Error(data)
     });
 };
