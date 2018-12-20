@@ -10,7 +10,9 @@ module.exports.post = function (status) {
         strictSSL: true,
     });
 
-    T.post('statuses/update', {status}, function (err, data) {          
-        throw new Error(JSON.stringify(data))
+    T.post('statuses/update', {status}, function (err, data) {
+        if (err !== undefined) {
+          throw new Error(JSON.stringify(data))
+        }
     });
 };
