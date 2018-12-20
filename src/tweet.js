@@ -1,7 +1,7 @@
 module.exports.post = function (status) {
     const Twit = require('twit');
 
-consople.log(process.env.CONSUMER_KEY)
+console.log('CONSUMER_KEY',process.env.CONSUMER_KEY)
 console.log(process.env);
     const T = new Twit({
         consumer_key: process.env.CONSUMER_KEY,
