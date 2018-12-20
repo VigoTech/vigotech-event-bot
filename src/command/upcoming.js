@@ -21,7 +21,6 @@ module.exports = function(argv) {
         let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
 
         console.log(status)
-
         //tweet.post(status);
     }
 };
