@@ -1,6 +1,8 @@
 module.exports.post = function (status) {
     const Twit = require('twit');
 
+consople.log(process.env.CONSUMER_KEY)
+console.log(process.env);
     const T = new Twit({
         consumer_key: process.env.CONSUMER_KEY,
         consumer_secret: process.env.CONSUMER_SECRET,
@@ -10,8 +12,7 @@ module.exports.post = function (status) {
         strictSSL: true,
     });
 
-    T.post('statuses/update', {status}, function (err, data) {
-    /*eslint no-console: "error"*/
-        console.log(data);
+    T.post('statuses/update', {status}, function (err, data) {          
+        throw new Error(data)
     });
 };
