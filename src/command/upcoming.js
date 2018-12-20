@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 function findUpcomingEvents(events, range) {
     return events.filter(item => {
         const date = new Date(item.nextEvent.date);
@@ -15,11 +17,11 @@ module.exports = function(argv) {
     for (let groupKey in upcommingEvents) {
         let group = upcommingEvents[groupKey];
         let eventDate = new Date(group.nextEvent.date);
-        let eventTimeString = (eventDate.getHours() < 10 ? '0': '') + eventDate.getHours() + ':' + (eventDate.getMinutes() < 10 ? '0': '') + eventDate.getMinutes();
-        let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en http://vigotech.org`;
+        let eventTimeString = moment(eventDate).format('HH:mm')
+        let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
 
         console.log(status)
 
-        tweet.post(status);
+        //tweet.post(status);
     }
 };
