@@ -1,5 +1,4 @@
-const moment = require('moment');
-const momentTimezone = require('moment-timezone')
+const moment= require('moment-timezone')
 
 function findUpcomingEvents(events, range) {
     return events.filter(item => {
