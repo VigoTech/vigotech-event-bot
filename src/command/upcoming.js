@@ -5,8 +5,6 @@ function findUpcomingEvents(events, range) {
         const date = new Date(item.nextEvent.date);
         const now = new Date();
 
-        range = 60 * 24;
-        
         return (date.getTime() >= (now.getTime() + 60 * 1000)) && (date.getTime() <= (now.getTime() + range * 60 * 1000));
     });
 }
@@ -23,6 +21,6 @@ module.exports = function(argv) {
         let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
 
         console.log(status)
-        //tweet.post(status);
+        tweet.post(status);
     }
 };
