@@ -5,6 +5,8 @@ function findUpcomingEvents(events, range) {
         const date = new Date(item.nextEvent.date);
         const now = new Date();
 
+        range = 60 * 24;
+        
         return (date.getTime() >= (now.getTime() + 60 * 1000)) && (date.getTime() <= (now.getTime() + range * 60 * 1000));
     });
 }
