@@ -1,4 +1,5 @@
 const moment = require('moment');
+const momentTimezone = require('moment-timezone')
 
 function findUpcomingEvents(events, range) {
     return events.filter(item => {
@@ -19,7 +20,7 @@ module.exports = function(argv) {
     for (let groupKey in upcommingEvents) {
         let group = upcommingEvents[groupKey];
         let eventDate = new Date(group.nextEvent.date);
-        let eventTimeString = moment(eventDate).format('HH:mm')
+        let eventTimeString = moment().timezone(eventDate,'Europe/Madrid').format('HH:mm')
         let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
 
         console.log(status)
