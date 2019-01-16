@@ -18,9 +18,9 @@ module.exports = function() {
 
     if (todayEvents.length > 0) {
         if (todayEvents.length == 1) {
-            tweet.post(`Hoxe temos programado un evento de ${todayEvents[0].name}. Máis info en ${todayEvents[0].nextEvent.url} ou en http://vigotech.org`);
+            tweet.post(`Hoxe temos programado un evento de ${todayEvents[0].name}. Máis info en ${todayEvents[0].nextEvent.url} ou en https://vigotech.org`);
         } else {
-            tweet.post(`Hoxe temos programados ${todayEvents.length} eventos. Máis info en http://vigotech.org`);
+            tweet.post(`Hoxe temos programados ${todayEvents.length} eventos. Máis info en https://vigotech.org`);
         }
     }
 };

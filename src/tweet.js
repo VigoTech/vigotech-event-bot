@@ -11,7 +11,8 @@ module.exports.post = function (status) {
     });
 
     T.post('statuses/update', {status}, function (err, data) {
-    /*eslint no-console: "error"*/
-        console.log(data);
+        if (err !== undefined) {
+          throw new Error(JSON.stringify(data))
+        }
     });
 };
