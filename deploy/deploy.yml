@@ -1,0 +1,58 @@
+---
+- name: Vigotech event bot
+  hosts: all
+  vars:
+    app:
+      name: 'vigotech-event-bot'
+      dir: '{{ ansible_user_dir }}/apps/'
+  tasks:
+    - name: Install a list of packages
+      yum:
+        name:
+          - epel-release
+          - git
+        state: present
+      become: yes
+    - name: Install nodejs rpm
+      shell: curl --silent --location https://rpm.nodesource.com/setup_10.x | bash -
+      args:
+        warn: false
+      become: yes
+    - name: Install nodejs and development tools
+      yum: name={{item}}
+      loop:
+        - nodejs
+        - gcc-c++
+        - make
+      become: yes
+    - name: "source code"
+      git:
+          repo: https://github.com/VigoTech/vigotech-event-bot.git
+          version: 'master'
+          dest: "{{ app.dir }}/{{ app.name }}"
+    - name: Install dependences
+      shell: npm install
+      args:
+        chdir: "{{ app.dir }}/{{ app.name }}/"
+    - name: Creates environment variables in crontab
+      cron:
+        name: "{{ item.key }}"
+        env: yes
+        value: "{{ item.value }}"
+      loop:
+        - {key: ACCESS_TOKEN, value: "{{ twitter_access_token }}"}
+        - {key: ACCESS_TOKEN_SECRET, value: "{{ twitter_access_token_secret }}"}
+        - {key: CONSUMER_KEY, value: "{{ twitter_consumer_key }}"}
+        - {key: CONSUMER_SECRET, value: "{{ twitter_consumer_secret }}"}
+        - {key: VIGOTECH_JSON, value: "https://vigotech.org/vigotech-generated.json"}
+    - name: Add Publish upcoming events cron
+      cron:
+        name: "Publish upcoming events"
+        minute: "0"
+        job: "$HOME/apps/vigotech-event-bot/events-bot upcoming"
+    - name: Add Publish daily events cron
+      cron:
+        name: "Publish daily events"
+        minute: "0"
+        hour: "9"
+        job: "$HOME/apps/vigotech-event-bot/events-bot daily"
