@@ -8,13 +8,13 @@ module.exports.events = function() {
     for (let groupKey in data.members) {
         let group = data.members[groupKey];
         try {
-            if (group.nextEvent.date === undefined) {
+            if (!group.nextEvent || group.nextEvent.date === undefined) {
                 continue;
             }
-
             const date = new Date(group.nextEvent.date);
 
             if (date.getTime() >= new Date().getTime()) {
+                group.twitter = getTwitter(group);
                 events.push(group);
             }
         }
@@ -27,3 +27,11 @@ module.exports.events = function() {
     return events;
 };
 
+function getTwitter(group) {
+    if (group.links && group.links.twitter) {
+        const components = group.links.twitter.split('/')
+        return components.pop()
+    } else {
+        return false;
+    }
+}
