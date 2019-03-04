@@ -4,7 +4,6 @@ function findUpcomingEvents(events, range) {
     return events.filter(item => {
         const date = new Date(item.nextEvent.date);
         const now = new Date();
-
         return (date.getTime() >= (now.getTime() + 60 * 1000)) && (date.getTime() <= (now.getTime() + range * 60 * 1000));
     });
 }
@@ -16,11 +15,14 @@ module.exports = function(argv) {
         
     for (let groupKey in upcommingEvents) {
         let group = upcommingEvents[groupKey];
+
         let eventDate = new Date(group.nextEvent.date);
         let eventTimeString = moment(eventDate).tz('Europe/Madrid').format('HH:mm')
-        let status = `O evento de ${group.name} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
+        let groupname = group.twitter ? `@${group.twitter}` : group.name;
 
-        console.log(status)
+        let status = `O evento de ${groupname} (${group.nextEvent.title}) comeza as ${eventTimeString}. +info ${group.nextEvent.url} ou en https://vigotech.org`;
+
+        //console.log(status)
         tweet.post(status);
     }
 };
