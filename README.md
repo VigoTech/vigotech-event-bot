@@ -8,6 +8,8 @@ Rename `.env.example` to `.env` and set values
 
   `./events-bot help`
   
+### Publish weeky summary   
+  `./events-bot week-calendar`
   
 ### Publish daily summary
 
