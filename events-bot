@@ -3,6 +3,7 @@ const yargs = require('yargs');
 const dailyCommand = require('./src/command/daily');
 const upcomingCommand = require('./src/command/upcoming');
 const calendarCommand = require('./src/command/calendar');
+const weekCalendarCommand = require('./src/command/week-calendar');
 require('dotenv').config();
 
 yargs
@@ -14,6 +15,10 @@ yargs
   .command('calendar', 'Send month emoji calendar',
       (yargs) => {},
       (argv) => calendarCommand(argv)
+  )
+  .command('week-calendar', 'Send week emoji calendar',
+      (yargs) => {},
+      (argv) => weekCalendarCommand(argv)
   )
   .command('upcoming [minutes]', 'Publish upcoming events',
       (yargs) => {

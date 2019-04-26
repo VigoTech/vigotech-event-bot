@@ -2,7 +2,6 @@ const moment = require('moment-timezone')
 const calendar = require('calendar-month-array')
 
 module.exports = function() {
-    const members = require('../events').members();
     const events = require('../events').events();
     const tweet = require('../tweet');
 
@@ -14,7 +13,7 @@ module.exports = function() {
             const dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 
             if (events[dateString] !== undefined) {
-                return ' 📅'
+                return '📅'
             } else {
                 return moment(date).format('DD')
             }
@@ -22,9 +21,12 @@ module.exports = function() {
         formatSiblingMonthDate: () => '  '
     })
 
-    console.log(weeks)
+    //console.log(weeks)
 
-    const status = 1
+    var status = ''
+    weeks.forEach(week => {
+        status += '\n' + week.join(' ')
+    })
 
     tweet.post(status);
 
