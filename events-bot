@@ -2,19 +2,18 @@
 const yargs = require('yargs');
 const dailyCommand = require('./src/command/daily');
 const upcomingCommand = require('./src/command/upcoming');
+const calendarCommand = require('./src/command/calendar');
 require('dotenv').config();
 
 yargs
   .usage('$0 <cmd> [args]')
   .command('daily', 'Send daily summary',
-    (yargs) => {
-        yargs.positional('name', {
-            type: 'string',
-            default: 'Cambi',
-            describe: 'the name to say hello to'
-        });
-    },
+    (yargs) => {},
     (argv) => dailyCommand(argv)
+  )
+  .command('calendar', 'Send month emoji calendar',
+      (yargs) => {},
+      (argv) => calendarCommand(argv)
   )
   .command('upcoming [minutes]', 'Publish upcoming events',
       (yargs) => {
