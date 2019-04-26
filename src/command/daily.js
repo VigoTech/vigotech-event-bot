@@ -4,32 +4,32 @@ module.exports = function() {
     const events = require('../events').events();
     const tweet = require('../tweet');
 
-    const todayEvents = findTodayEvents(events);
-
+    const date = new Date()
+    const dateString = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+    const todayEvents = events[dateString]
 
     if (todayEvents.length > 0) {
-        if (todayEvents.length == 1) {
+        if (todayEvents.length === 1) {
             let status = `Hoxe temos programado un evento. Máis info en https://vigotech.org`;
-            //console.log(status)
-            tweet.post(status);
-        } else {
-            let status = `Hoxe temos programados ${todayEvents.length} eventos. Máis info en https://vigotech.org`;
-            //console.log(status)
             tweet.post(status);
         }
-    }
+        else {
+            let status = `Hoxe temos programados ${todayEvents.length} eventos. Máis info en https://vigotech.org`;
+            tweet.post(status);
+        }
 
-    for (let groupKey in todayEvents) {
-        let group = todayEvents[groupKey];
+        for (let eventKey in todayEvents) {
+            let event = todayEvents[eventKey]
+            let group = event.group
 
-        let eventDate = new Date(group.nextEvent.date);
-        let eventTimeString = moment(eventDate).tz('Europe/Madrid').format('HH:mm')
-        let groupname = group.twitter ? `@${group.twitter}` : group.name;
+            let eventDate = new Date(event.date);
+            let eventTimeString = moment(eventDate).tz('Europe/Madrid').format('HH:mm')
+            let groupname = group.twitter ? `@${group.twitter}` : group.name;
 
-        let status = `Hoxe as ${eventTimeString}h, ${groupname} organiza: "${group.nextEvent.title}". +info ${group.nextEvent.url} ou en https://vigotech.org`;
+            let status = `Hoxe as ${eventTimeString}h, ${groupname} organiza: "${event.title}". +info ${event.url} ou en https://vigotech.org`;
 
-        //console.log(status)
-        tweet.post(status);
+            tweet.post(status);
+        }
     }
 };
 
